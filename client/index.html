@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý File</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="user-id">
+                <h3 id="userInfo">ID: ...</h3>
+            </div>
+            <h1>Quản Lý File</h1>
+            <button class="logout-btn" onclick="logout()">Đăng Xuất</button>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Phần tải file và gửi file -->
+            <div class="file-actions">
+                <!-- Phần tải file lên (bên trái) -->
+                <section class="upload-section">
+                    <h2>Tải Lên File</h2>
+                    <div class="upload-form">
+                        <input type="file" id="fileInput">
+                        <button onclick="uploadFile()">Tải Lên</button>
+                    </div>
+                </section>
+
+                <!-- Phần gửi file (bên phải) -->
+                <section class="share-section">
+                    <h2>Gửi File Đến Người Dùng Khác</h2>
+                    <div class="share-form">
+                        <input type="text" id="recipientInput" placeholder="ID hoặc Tên tài khoản">
+                        <input type="file" id="shareFileInput">
+                        <button onclick="shareFile()">Gửi File</button>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Phần danh sách file -->
+            <section class="file-list-section">
+                <div class="file-list-header">
+                    <h2>Danh Sách File</h2>
+                    <span class="toggle-arrow" onclick="toggleFileList()">▼</span>
+                </div>
+                <ul id="fileList" class="file-list"></ul>
+            </section>
+        </main>
+    </div>
+    <div id="notification" class="notification"></div>
+    <script src="script.js"></script>
+    <script>
+        // Đảm bảo jwt_decode đã được tải trước khi gọi displayUserInfo
+        window.onload = function() {
+            if (typeof jwt_decode === "undefined") {
+                console.error("jwt_decode không được định nghĩa. Đảm bảo file jwt-decode.min.js được tải đúng.");
+                document.getElementById("userInfo").textContent = "ID: N/A";
+                return;
+            }
+            checkLogin();
+            loadFiles();
+            setTimeout(displayUserInfo, 100);
+            document.getElementById("fileList").style.display = "block";
+        };
+
+        function toggleFileList() {
+            const fileList = document.getElementById("fileList");
+            const arrow = document.querySelector(".toggle-arrow");
+            if (fileList.style.display === "none") {
+                fileList.style.display = "block";
+                arrow.textContent = "▼";
+            } else {
+                fileList.style.display = "none";
+                arrow.textContent = "▶";
+            }
+        }
+    </script>
+</body>
+</html>

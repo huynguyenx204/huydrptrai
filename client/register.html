@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký</title>
+    <link rel="stylesheet" href="css/register.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Đăng Ký</h1>
+        <input type="text" id="registerUsername" placeholder="Tên đăng nhập">
+        <div class="password-container">
+            <input type="password" id="registerPassword" placeholder="Mật khẩu">
+            <span class="toggle-password" onclick="togglePassword('registerPassword')">👁</span>
+        </div>
+        <input type="email" id="registerEmail" placeholder="Email">
+        <button onclick="register()">Đăng Ký</button>
+        <p>Đã có tài khoản? <a href="login.html">Đăng nhập</a></p>
+    </div>
+    <div id="notification" class="notification"></div> <!-- Thêm div cho thông báo -->
+    <script src="script.js"></script>
+    <script>
+        window.onload = function() {
+            checkRegistrationAndLogin();
+        };
+    </script>
+</body>
+</html>
